@@ -1,0 +1,76 @@
+const express = require('express');
+const router = express.Router();
+const initializePool = require('../utils/Pool');
+
+// CREATE - Add a new social interaction record
+router.post('/', async (req, res) => {
+    try {
+        const { userId, connectedUsers, sharedAchievements, communityPosts } = req.body;
+
+        const pool = await initializePool();
+        const newInteraction = await pool.query(
+            "INSERT INTO social_interaction (userid, connected_users, shared_achievements, community_posts) VALUES ($1, $2, $3, $4) RETURNING *",
+            [userId, connectedUsers, sharedAchievements, communityPosts]
+        );
+        res.json(newInteraction.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get all social interaction records
+router.get('/', async (req, res) => {
+    try {
+
+        const pool = await initializePool();
+        const allInteractions = await pool.query("SELECT * FROM social_interaction");
+        res.json(allInteractions.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get a single social interaction record by ID
+router.get('/:interactionId', async (req, res) => {
+    try {
+        const { interactionId } = req.params;
+
+        const pool = await initializePool();
+        const interaction = await pool.query("SELECT * FROM social_interaction WHERE interaction_id = $1", [interactionId]);
+        res.json(interaction.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// UPDATE - Update a social interaction record
+router.put('/:interactionId', async (req, res) => {
+    try {
+        const { interactionId } = req.params;
+        const { userId, connectedUsers, sharedAchievements, communityPosts } = req.body;
+
+        const pool = await initializePool();
+        await pool.query(
+            "UPDATE social_interaction SET user_id = $1, connected_users = $2, shared_achievements = $3, community_posts = $4 WHERE interaction_id = $5",
+            [userId, connectedUsers, sharedAchievements, communityPosts, interactionId]
+        );
+        res.json("Social interaction updated!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// DELETE - Delete a social interaction record
+router.delete('/:interactionId', async (req, res) => {
+    try {
+        const { interactionId } = req.params;
+
+        const pool = await initializePool();
+        await pool.query("DELETE FROM social_interaction WHERE interaction_id = $1", [interactionId]);
+        res.json("Social interaction deleted!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+module.exports = router;

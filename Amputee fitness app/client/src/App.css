@@ -1,0 +1,14 @@
+body {
+    background: #f8f9fa;
+    font-family: Arial;
+}
+.navbar
+{
+    height : 100px
+}
+
+#profile{
+    height: 60px;
+    width: 60px;
+    border: 15px;
+}

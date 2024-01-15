@@ -1,0 +1,9 @@
+{
+  "database": {
+    "user": "postgres",
+    "host": "localhost",
+    "database": "AmputeesPro",
+    "password": "admin",
+    "port": 5432
+  }
+}

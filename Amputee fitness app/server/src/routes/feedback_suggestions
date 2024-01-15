@@ -1,0 +1,76 @@
+const express = require('express');
+const router = express.Router();
+const initializePool = require('../utils/Pool');
+
+// CREATE - Add a new feedback suggestion
+router.post('/', async (req, res) => {
+    try {
+        const { userId, feedbackDate, content, response } = req.body;
+
+        const pool = await initializePool();
+        const newFeedbackSuggestion = await pool.query(
+            "INSERT INTO feedback_suggestions (user_id, feedback_date, content, response) VALUES ($1, $2, $3, $4) RETURNING *",
+            [userId, feedbackDate, content, response]
+        );
+        res.json(newFeedbackSuggestion.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get all feedback suggestions
+router.get('/', async (req, res) => {
+    try {
+
+        const pool = await initializePool();
+        const allFeedbackSuggestions = await pool.query("SELECT * FROM feedback_suggestions");
+        res.json(allFeedbackSuggestions.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get a single feedback suggestion by ID
+router.get('/:feedbackId', async (req, res) => {
+    try {
+        const { feedbackId } = req.params;
+
+        const pool = await initializePool();
+        const feedbackSuggestion = await pool.query("SELECT * FROM feedback_suggestions WHERE feedback_id = $1", [feedbackId]);
+        res.json(feedbackSuggestion.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// UPDATE - Update a feedback suggestion
+router.put('/:feedbackId', async (req, res) => {
+    try {
+        const { feedbackId } = req.params;
+        const { userId, feedbackDate, content, response } = req.body;
+
+        const pool = await initializePool();
+        await pool.query(
+            "UPDATE feedback_suggestions SET user_id = $1, feedback_date = $2, content = $3, response = $4 WHERE feedback_id = $5",
+            [userId, feedbackDate, content, response, feedbackId]
+        );
+        res.json("Feedback suggestion updated!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// DELETE - Delete a feedback suggestion
+router.delete('/:feedbackId', async (req, res) => {
+    try {
+        const { feedbackId } = req.params;
+
+        const pool = await initializePool();
+        await pool.query("DELETE FROM feedback_suggestions WHERE feedback_id = $1", [feedbackId]);
+        res.json("Feedback suggestion deleted!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+module.exports = router;

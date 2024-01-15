@@ -1,0 +1,76 @@
+const express = require('express');
+const router = express.Router();
+const initializePool = require('../utils/Pool');
+
+// CREATE - Add new customization settings
+router.post('/', async (req, res) => {
+    try {
+        const { userId, voiceGuidance, visualAid, musicStyle, notificationSettings } = req.body;
+
+        const pool = await initializePool();
+        const newSetting = await pool.query(
+            "INSERT INTO customization_settings (UserId, voice_guidance, visual_aid, music_style, notification_settings) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [userId, voiceGuidance, visualAid, musicStyle, notificationSettings]
+        );
+        res.json(newSetting.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get all customization settings
+router.get('/', async (req, res) => {
+    try {
+
+        const pool = await initializePool();
+        const allSettings = await pool.query("SELECT * FROM customization_settings");
+        res.json(allSettings.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get customization settings by user ID
+router.get('/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        const pool = await initializePool();
+        const settings = await pool.query("SELECT * FROM customization_settings WHERE UserId = $1", [userId]);
+        res.json(settings.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// UPDATE - Update customization settings
+router.put('/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { voiceGuidance, visualAid, musicStyle, notificationSettings } = req.body;
+
+        const pool = await initializePool();
+        await pool.query(
+            "UPDATE customization_settings SET voice_guidance = $1, visual_aid = $2, music_style = $3, notification_settings = $4 WHERE UserId = $5",
+            [voiceGuidance, visualAid, musicStyle, notificationSettings, userId]
+        );
+        res.json("Customization settings updated!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// DELETE - Delete customization settings
+router.delete('/:userId', async (req, res) => {
+    try {
+        const { userId } = req.params;
+
+        const pool = await initializePool();
+        await pool.query("DELETE FROM customization_settings WHERE UserId = $1", [userId]);
+        res.json("Customization settings deleted!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+module.exports = router;

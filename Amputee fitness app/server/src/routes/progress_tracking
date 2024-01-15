@@ -1,0 +1,76 @@
+const express = require('express');
+const router = express.Router();
+const initializePool = require('../utils/Pool');
+
+// CREATE - Add new progress tracking
+router.post('/', async (req, res) => {
+    try {
+        const { userId, startDate, goals, achievements, exerciseData } = req.body;
+
+        const pool = await initializePool();
+        const newProgress = await pool.query(
+            "INSERT INTO progress_tracking (UserId, start_date, goals, achievements, exercise_data) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [userId, startDate, goals, achievements, exerciseData]
+        );
+        res.json(newProgress.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get all progress tracking records
+router.get('/', async (req, res) => {
+    try {
+
+        const pool = await initializePool();
+        const allProgress = await pool.query("SELECT * FROM progress_tracking");
+        res.json(allProgress.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get a single progress tracking record by progress ID
+router.get('/:progressId', async (req, res) => {
+    try {
+        const { progressId } = req.params;
+
+        const pool = await initializePool();
+        const progress = await pool.query("SELECT * FROM progress_tracking WHERE progress_id = $1", [progressId]);
+        res.json(progress.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// UPDATE - Update a progress tracking record
+router.put('/:progressId', async (req, res) => {
+    try {
+        const { progressId } = req.params;
+        const { goals, achievements, exerciseData } = req.body;
+
+        const pool = await initializePool();
+        await pool.query(
+            "UPDATE progress_tracking SET goals = $1, achievements = $2, exercise_data = $3 WHERE progress_id = $4",
+            [goals, achievements, exerciseData, progressId]
+        );
+        res.json("Progress tracking updated!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// DELETE - Delete a progress tracking record
+router.delete('/:progressId', async (req, res) => {
+    try {
+        const { progressId } = req.params;
+
+        const pool = await initializePool();
+        await pool.query("DELETE FROM progress_tracking WHERE progress_id = $1", [progressId]);
+        res.json("Progress tracking deleted!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+module.exports = router;

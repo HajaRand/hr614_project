@@ -1,0 +1,76 @@
+const express = require('express');
+const router = express.Router();
+const initializePool = require('../utils/Pool');
+
+// CREATE - Add new exercise to the library
+router.post('/', async (req, res) => {
+    try {
+        const { name, description, difficultyLevel, prostheticFriendly, videoUrl } = req.body;
+
+        const pool = await initializePool();
+        const newExercise = await pool.query(
+            "INSERT INTO exercise_library (name, description, difficulty_level, prosthetic_friendly, video_url) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [name, description, difficultyLevel, prostheticFriendly, videoUrl]
+        );
+        res.json(newExercise.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get all exercises in the library
+router.get('/', async (req, res) => {
+    try {
+
+        const pool = await initializePool();
+        const allExercises = await pool.query("SELECT * FROM exercise_library");
+        res.json(allExercises.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get a single exercise by ID
+router.get('/:exerciseId', async (req, res) => {
+    try {
+        const { exerciseId } = req.params;
+
+        const pool = await initializePool();
+        const exercise = await pool.query("SELECT * FROM exercise_library WHERE exercise_id = $1", [exerciseId]);
+        res.json(exercise.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// UPDATE - Update an exercise in the library
+router.put('/:exerciseId', async (req, res) => {
+    try {
+        const { exerciseId } = req.params;
+        const { name, description, difficultyLevel, prostheticFriendly, videoUrl } = req.body;
+
+        const pool = await initializePool();
+        await pool.query(
+            "UPDATE exercise_library SET name = $1, description = $2, difficulty_level = $3, prosthetic_friendly = $4, video_url = $5 WHERE exercise_id = $6",
+            [name, description, difficultyLevel, prostheticFriendly, videoUrl, exerciseId]
+        );
+        res.json("Exercise updated!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// DELETE - Delete an exercise from the library
+router.delete('/:exerciseId', async (req, res) => {
+    try {
+        const { exerciseId } = req.params;
+
+        const pool = await initializePool();
+        await pool.query("DELETE FROM exercise_library WHERE exercise_id = $1", [exerciseId]);
+        res.json("Exercise deleted!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+module.exports = router;

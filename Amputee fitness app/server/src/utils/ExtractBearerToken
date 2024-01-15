@@ -1,0 +1,19 @@
+function extractBearerToken (req) {
+    const authHeader = req.headers['authorization'];
+
+    if (authHeader) {
+        // Split the header value to separate "Bearer" from the token
+        const parts = authHeader.split(' ');
+        if (parts.length === 2 && parts[0] === 'Bearer') {
+            const token = parts[1];
+
+            console.log("FITNESSPRO: extractBearerToken:", token);
+            return token;
+        }
+    }
+
+    return null;
+    
+}
+
+module.exports = extractBearerToken;

@@ -1,0 +1,76 @@
+const express = require('express');
+const router = express.Router();
+const initializePool = require('../utils/Pool');
+
+// CREATE - Add a new workout session
+router.post('/', async (req, res) => {
+    try {
+        const { userId, sessionDate, duration, exercises, feedback } = req.body;
+
+        const pool = await initializePool();
+        const newSession = await pool.query(
+            "INSERT INTO workout_sessions (UserId, session_date, duration, exercises, feedback) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+            [userId, sessionDate, duration, exercises, feedback]
+        );
+        res.json(newSession.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get all workout sessions
+router.get('/', async (req, res) => {
+    try {
+
+        const pool = await initializePool();
+        const allSessions = await pool.query("SELECT * FROM workout_sessions");
+        res.json(allSessions.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get a single workout session by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const pool = await initializePool();
+        const session = await pool.query("SELECT * FROM workout_sessions WHERE session_id = $1", [id]);
+        res.json(session.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// UPDATE - Update a workout session
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { sessionDate, duration, exercises, feedback } = req.body;
+
+        const pool = await initializePool();
+        await pool.query(
+            "UPDATE workout_sessions SET session_date = $1, duration = $2, exercises = $3, feedback = $4 WHERE session_id = $5",
+            [sessionDate, duration, exercises, feedback, id]
+        );
+        res.json("Workout session was updated!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// DELETE - Delete a workout session
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const pool = await initializePool();
+        await pool.query("DELETE FROM workout_sessions WHERE session_id = $1", [id]);
+        res.json("Workout session was deleted!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+module.exports = router;

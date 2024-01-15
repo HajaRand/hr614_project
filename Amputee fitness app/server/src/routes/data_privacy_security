@@ -1,0 +1,76 @@
+const express = require('express');
+const router = express.Router();
+const initializePool = require('../utils/Pool');
+
+// CREATE - Add a new data privacy and security record
+router.post('/', async (req, res) => {
+    try {
+        const { userId, dataSharingPreferences, deletionRequests } = req.body;
+
+        const pool = await initializePool();
+        const newDataPrivacySecurity = await pool.query(
+            "INSERT INTO data_privacy_security (userid, data_sharing_preferences, deletion_requests) VALUES ($1, $2, $3) RETURNING *",
+            [userId, dataSharingPreferences, deletionRequests]
+        );
+        res.json(newDataPrivacySecurity.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get all data privacy and security records
+router.get('/', async (req, res) => {
+    try {
+
+        const pool = await initializePool();
+        const allDataPrivacySecurity = await pool.query("SELECT * FROM data_privacy_security");
+        res.json(allDataPrivacySecurity.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// READ - Get a single data privacy and security record by ID
+router.get('/:privacyId', async (req, res) => {
+    try {
+        const { privacyId } = req.params;
+
+        const pool = await initializePool();
+        const privacySecurity = await pool.query("SELECT * FROM data_privacy_security WHERE privacy_id = $1", [privacyId]);
+        res.json(privacySecurity.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// UPDATE - Update a data privacy and security record
+router.put('/:privacyId', async (req, res) => {
+    try {
+        const { privacyId } = req.params;
+        const { userId, dataSharingPreferences, deletionRequests } = req.body;
+
+        const pool = await initializePool();
+        await pool.query(
+            "UPDATE data_privacy_security SET user_id = $1, data_sharing_preferences = $2, deletion_requests = $3 WHERE privacy_id = $4",
+            [userId, dataSharingPreferences, deletionRequests, privacyId]
+        );
+        res.json("Data privacy and security record updated!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+// DELETE - Delete a data privacy and security record
+router.delete('/:privacyId', async (req, res) => {
+    try {
+        const { privacyId } = req.params;
+
+        const pool = await initializePool();
+        await pool.query("DELETE FROM data_privacy_security WHERE privacy_id = $1", [privacyId]);
+        res.json("Data privacy and security record deleted!");
+    } catch (err) {
+        console.error(err.message);
+    }
+});
+
+module.exports = router;
