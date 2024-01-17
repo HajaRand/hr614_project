@@ -45,9 +45,7 @@ Exercise Library
 Microsoft Azure
 
 https://azure.microsoft.com/en-us/get-started/azure-portal
-
 Email: pakamisaMicro@outlook.com
-
 Password: Grey220022@
 
 Azure DevOps
