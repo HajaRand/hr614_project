@@ -42,9 +42,12 @@ Feature 3
 Exercise Library
 
 # Credentials
-Microsoft Azure<br>
-https://azure.microsoft.com/en-us/get-started/azure-portal<br>
-Email: pakamisaMicro@outlook.com<br>
+Microsoft Azure
+
+https://azure.microsoft.com/en-us/get-started/azure-portal
+
+Email: pakamisaMicro@outlook.com
+
 Password: Grey220022@
 
 Azure DevOps
