@@ -45,23 +45,34 @@ Exercise Library
 Microsoft Azure
 
 https://azure.microsoft.com/en-us/get-started/azure-portal
+
 Email: pakamisaMicro@outlook.com
+
 Password: Grey220022@
 
 Azure DevOps
+
 https://azure.microsoft.com/en-gb/products/devops
+
 Click on Start Free
+
 Email: pakamisaMicro@outlook.com
+
 Password: Grey220022@
 
 Auth0 by Okta
+
 https://auth0.auth0.com/u/login/identifier?state=hKFo2SBMci1MNFc5M0paZ3h1c1lFalF3a0l5Rkl6Ui1nZHdWUaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIHZvZWNzaHp5NGNCVjJJY0NUTlpaU0E0aFpWVFFGd2ROo2NpZNkgekVZZnBvRnpVTUV6aWxoa0hpbGNXb05rckZmSjNoQUk
 Click on Continue with Microsoft Account
+
 Email: pakamisaMicro@outlook.com
+
 Password: Grey220022@
 
 Fitness Pro
+
 https://fitnessproclient.azurewebsites.net/
+
 Sign Up  or Continue with Google
 
 # Contact
