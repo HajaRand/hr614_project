@@ -12,24 +12,24 @@ The following tools were used in this project:
 Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [React](https://pt-br.reactjs.org/) and [Node](https://nodejs.org/en/) installed.
 
 # Clone this project
-$ git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/hr614_project
+$git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/hr614_project
 
 # Access
-$ cd hr614_project
+$cd hr614_project
 
 # Install dependencies
-$ npm
+$npm
 
 # Run the project
-cd server
+$cd server
 
-node server.js
+$node server.js
 
 The server will start at <http://localhost:3000>
 
-cd client
+$cd client
 
-npm run dev
+$npm run dev
 
 # Usage
 npm start
