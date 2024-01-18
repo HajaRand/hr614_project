@@ -22,10 +22,10 @@ $ npm
 
 # Run the project
 $ cd server
-$node server.js
-$The server will initialise in the <http://localhost:3000>
-$cd client
-$npm run dev
+$ node server.js
+$ The server will initialise in the <http://localhost:3000>
+$ cd client
+$ npm run dev
 
 # Usage
 npm start
