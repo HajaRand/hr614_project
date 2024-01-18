@@ -6,11 +6,10 @@ The following tools were used in this project:
 - [Expo](https://expo.io/)
 - [Node.js](https://nodejs.org/en/)
 - [React](https://pt-br.reactjs.org/)
-- [React Native](https://reactnative.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 
 # Requirements
-Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) and [Node](https://nodejs.org/en/) installed.
+Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [React](https://pt-br.reactjs.org/) and [Node](https://nodejs.org/en/) installed.
 
 # Clone this project
 $ git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/hr614_project
@@ -19,12 +18,12 @@ $ git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/hr614_project
 $ cd hr614_project
 
 # Install dependencies
-$ yarn
+$ npm
 
 # Run the project
-$ yarn start
+$ npm start
 
-The server will initialize in the <http://localhost:3000>
+The server will initialise in the <http://localhost:3000>
 
 # Usage
 npm start
