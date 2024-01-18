@@ -21,6 +21,8 @@ $cd hr614_project
 $npm
 
 # Run the project
+Open a terminal in the server directory
+
 $cd server
 
 $node server.js
