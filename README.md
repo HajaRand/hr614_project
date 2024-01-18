@@ -71,6 +71,7 @@ Password: Grey220022@
 **Auth0 by Okta**
 
 https://auth0.auth0.com/u/login/identifier?state=hKFo2SBMci1MNFc5M0paZ3h1c1lFalF3a0l5Rkl6Ui1nZHdWUaFur3VuaXZlcnNhbC1sb2dpbqN0aWTZIHZvZWNzaHp5NGNCVjJJY0NUTlpaU0E0aFpWVFFGd2ROo2NpZNkgekVZZnBvRnpVTUV6aWxoa0hpbGNXb05rckZmSjNoQUk
+
 Click on Continue with Microsoft Account
 
 Email: pakamisaMicro@outlook.com
