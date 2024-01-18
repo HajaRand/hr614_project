@@ -21,11 +21,11 @@ $ cd hr614_project
 $ npm
 
 # Run the project
-$ cd server
-$ node server.js
-$ The server will initialise in the <http://localhost:3000>
-$ cd client
-$ npm run dev
+$cd server
+$node server.js
+$The server will initialise in the <http://localhost:3000>
+$cd client
+$npm run dev
 
 # Usage
 npm start
