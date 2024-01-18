@@ -33,6 +33,8 @@ $cd client
 
 $npm run dev
 
+The UI will open in the browser
+
 # Usage
 npm start
 
