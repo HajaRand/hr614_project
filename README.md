@@ -29,6 +29,8 @@ $node server.js
 
 The server will start at <http://localhost:3000>
 
+Open a terminal in the client directory
+
 $cd client
 
 $npm run dev
