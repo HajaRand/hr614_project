@@ -16,12 +16,40 @@ $git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/hr614_project
 
 # Access
 $cd hr614_project
+$cd .\Amputee fitness app\
 
 # Install dependencies
-$npm
+Open a terminal in the server directory
+
+$cd server
+
+$npm install
+
+Open a terminal in the client directory
+
+$cd client
+
+$npm install
+
+# Install Database
+
+$Install PostgreSQL 15 Database Server 
+
+Default username: 'postgres'
+
+Default password: 'admin'
+
+Alternatively update the Username and Password in the the databaseConfig.json file in the server directory
+
+$Create a Database called 'AmputeesPro'
+
+Open Query on the Database and create a schema by running 'Database Creation.sql' found in server/SQL
+
+Add reference data by running the 'Reference Data Template.sql' found in sever/SQL
 
 # Run the project
-Open a terminal in the server directory
+
+Open a terminal in the client directory
 
 $cd server
 
