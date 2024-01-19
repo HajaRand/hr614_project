@@ -1,5 +1,0 @@
-VITE_APP_AUTH0_DOMAIN=dev-k8oh5w4genkc5o8y.uk.auth0.com
-VITE_APP_AUTH0_CLIENT_ID=NHd4sh59WMMHgrObgfBERxNnj88wDr5a
-VITE_APP_AUTH0_CALLBACK_URL=http://localhost:5173/callback
-VITE_APP_AUTH0_AUDIENCE=http://localhost:3000
-VITE_APP_API_SERVER_URL=http://localhost:3000
