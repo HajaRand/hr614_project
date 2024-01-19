@@ -112,6 +112,9 @@ https://fitnessproclient.azurewebsites.net/
 
 Sign Up  or Continue with Google
 
+**Note**
+You would not normally add the .env files and databaseConfig.json to source control as a best practice but it was done here to simply the process of getting the application to run.
+
 # Contact
 Haja Randrianarisoa – hr614@bath.ac.uk
 
