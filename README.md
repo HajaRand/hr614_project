@@ -16,10 +16,11 @@ $git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/hr614_project
 
 # Access
 $cd hr614_project
-$cd .\Amputee fitness app\
 
 # Install dependencies
 Open a terminal in the server directory
+
+$cd .\Amputee fitness app\
 
 $cd server
 
