@@ -64,6 +64,8 @@ $cd client
 
 $npm run dev
 
+$ Type 'o' and enter
+
 The UI will open in the browser
 
 # Features
